@@ -123,6 +123,18 @@ if uploaded_file is not None:
 # Prediction
 st.subheader("Prediction Results")
 
+expected_cols = pipeline.feature_names_in_
+
+missing_cols = set(expected_cols) - set(input_df.columns)
+extra_cols = set(input_df.columns) - set(expected_cols)
+
+if missing_cols:
+    st.error(f"Missing columns: {missing_cols}")
+    st.stop()
+
+if extra_cols:
+    input_df = input_df[expected_cols]
+    
 prediction = pipeline.predict(input_df)
 prediction_proba = pipeline.predict_proba(input_df)
 
@@ -198,4 +210,5 @@ st.markdown("""
 *This application demonstrates an end-to-end data science workflow:
 ASK → PREPARE → PROCESS → MODEL → SHARE → ACT*
 """)
+
 
