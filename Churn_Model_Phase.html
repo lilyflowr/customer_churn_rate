@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>4. MODEL — Modeling, Evaluation & Interpretation</title>
+    <style>
+        body {
+            font-family: Calibri, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>4. MODEL — Modeling, Evaluation & Interpretation</h1>
+    <h2>Problem Type (Classification / Regression)</h2>
+    <p>The problem is a binary classification task predicting whether a customer will churn (Yes) or stay (No). A logistic regression model was used within a scikit-learn pipeline to apply preprocessing and train the model. The pipeline ensures scaling and encoding are applied consistently, preventing leakage and making the model deployment-ready.</p>
+    <h2>Baseline Model</h2>
+    <p>Baseline performance is based on predicting the majority class (No churn). Based on our value_counts, the churn rate is ~26.54%, so a naive baseline model that predicts all customers as staying achieves ~73.46% accuracy. Our model needs to outperform this to be useful.</p>
+    <h2>Models Trained</h2>
+    <p>A logistic regression model was trained using a pipeline that combines preprocessing (scaling numeric features and one-hot encoding categorical features) with logistic regression (max_iter=1000).</p>
+    <h2>Evaluation Metrics (and why chosen)</h2>
+    <p>Metrics chosen focus on both overall performance and the minority churn class:<br>- Accuracy: overall proportion of correct predictions.<br>- Precision (Churn): proportion of predicted churns that were correct.<br>- Recall (Churn): proportion of actual churns correctly identified.<br>- F1-Score: harmonic mean of precision and recall for the churn class.<br>- Confusion Matrix: visualizes true positives, false positives, true negatives, and false negatives.</p>
+    <p>These metrics ensure we measure how well the model identifies churners, which is critical for business action.</p>
+    <h2>Model Performance Summary</h2>
+    <p>Confusion Matrix Results:<br>TN (Stayed correctly): 917<br>FP (Incorrectly predicted churn): 118<br>FN (Missed churners): 169<br>TP (Correctly predicted churners): 205</p>
+    <p>Overall Accuracy: ~80%<br>Precision (Churn): ~0.63<br>Recall (Churn): ~0.55<br>F1-Score (Churn): ~0.59</p>
+    <p>Insight: Model predicts customers who stay more accurately than those who churn. Recall for churn is lower, indicating room for improvement in identifying at-risk customers.</p>
+    <h2>Feature Importance / Key Drivers</h2>
+    <p>Feature coefficients from the logistic regression model indicate drivers of churn (positive values) and retention (negative values). Top drivers include:<br>- Contract_Month-to-month (+0.68): strongly increases churn risk.<br>- InternetService_Fiber optic (+0.51): customers with fiber optic more likely to churn.<br>- PaymentMethod_Electronic check (+0.27): increases churn probability.</p>
+    <p>Top retention factors include:<br>- Tenure (-0.80): longer-tenured customers less likely to churn.<br>- Contract_Two year (-0.66): long-term contracts reduce churn.<br>- InternetService_DSL (-0.40): slightly reduces churn likelihood.</p>
+    <h2>Error Analysis</h2>
+    <p>False negatives (missed churners) represent ~45% of actual churners, highlighting the model's challenge in detecting all at-risk customers. False positives are lower (~118), meaning fewer unnecessary retention interventions are suggested. Improvements can target increasing recall for churners via class balancing or more complex models.</p>
+    <h2>Model Limitations & Risks</h2>
+    <p>The model is limited to the features in the dataset and may not capture external factors (competitor offers, economic changes). It assumes historical behavior predicts future churn, and recall for churners is moderate (~55%). Linear assumptions may not capture nonlinear interactions; feature multicollinearity is possible but tolerated for interpretability.</p>
+</body>
+</html>
