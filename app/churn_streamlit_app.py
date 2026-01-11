@@ -1,32 +1,23 @@
-# ===========================
-# Customer Churn Prediction App
-# ===========================
-
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 import plotly.express as px
 
-# ===========================
-# Page Configuration
-# ===========================
+
 st.set_page_config(
     page_title="Customer Churn Prediction",
     layout="wide"
 )
 
-# ===========================
-# Load Trained Pipeline
-# ===========================
 @st.cache_resource
 def load_pipeline():
-    return joblib.load("pipeline.pkl")
+    base_dir = os.path.dirname(__file__)
+    model_path = os.path.join(base_dir, "pipeline.pkl")
+    return joblib.load(model_path)
 
 pipeline = load_pipeline()
 
-# ===========================
-# Title & Business Context
-# ===========================
 st.title("Customer Churn Prediction App")
 
 st.markdown("""
@@ -207,3 +198,4 @@ st.markdown("""
 *This application demonstrates an end-to-end data science workflow:
 ASK → PREPARE → PROCESS → MODEL → SHARE → ACT*
 """)
+
