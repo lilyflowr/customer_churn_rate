@@ -1,173 +1,80 @@
 # Customer Churn Prediction (Telco)
-## End-to-End Applied Data Science Project
 
  
 
 ## Overview
 
-Customer churn is a major revenue risk for subscription-based businesses.  
-In this project, I built an **end-to-end predictive churn system** that identifies customers at risk of leaving and enables **real-time interaction with predictions** via a deployed Streamlit application.
+Customer churn is a persistent revenue risk for subscription-based businesses, especially in industries where switching costs are low and acquisition is expensive.
 
-This case study demonstrates **applied data science capability** — from problem framing and feature engineering to modeling, interpretability, and stakeholder-facing deployment.
+This project focuses on identifying customers at elevated risk of churn and translating that risk into prioritized, interpretable, and actionable retention decisions. The emphasis is on building a churn assessment that business teams can understand, trust, and use.
 
- 
+An interactive application was deployed to ensure the analysis is accessible beyond notebooks and static reports.
 
-## Business Problem (ASK)
 
-### Key Questions
-- How can we predict which customers are most likely to churn?
-- Which features most strongly influence churn risk?
-- How can the business act on churn predictions?
+## Business Framing
+Retention teams rarely struggle with data availability. The real challenge is deciding who to act on, when to intervene, and which levers are worth pulling.
 
-### Why This Matters
-Retaining existing customers is significantly cheaper than acquiring new ones.  
-A reliable churn prediction model enables **proactive retention strategies** rather than reactive loss management.
+This project addresses three core questions:
+- Which customers show the strongest signals of churn risk?
+- What patterns consistently explain that risk?
+- How can churn probabilities support prioritization rather than generic outreach?
 
  
-
-## Project Objectives
-
-- Build a **binary classification model** to predict churn
-- Identify **key drivers of churn** using interpretable modeling
-- Translate predictions into **business-actionable insights**
-- Deploy an **interactive application** for stakeholder use
-
- 
-
-## Dataset (PREPARE)
+## Dataset Context
 
 - **Dataset:** Telco Customer Churn  
 - **Source:** IBM Sample Dataset (https://www.kaggle.com/datasets/blastchar/telco-customer-churn)  
-- **Observations:** ~7,000 customers  
+- **Population:** ~7,000 customers  
 - **Target Variable:** `Churn` (Yes / No)
 
-### Feature Categories
-- **Demographics:** gender, senior citizen, dependents  
-- **Account details:** tenure, contract type, payment method  
-- **Services:** internet, phone, streaming, support  
-- **Billing:** monthly charges, total charges  
+## Analytical Approach
+All preprocessing and modeling steps were handled through a scikit-learn pipeline to ensure consistency between training and deployment. This eliminated manual transformations and reduced the risk of leakage or mismatch during inference.
 
-### Data Considerations
-- Mixed numerical and categorical features
-- Missing values introduced during numeric coercion
-- Class imbalance present (churn vs non-churn)
+A logistic regression model was selected intentionally. The goal was to produce probability-based risk scores that can be explained to non-technical stakeholders and used directly for prioritization.
 
+### What Drives Churn Risk
+- Customers on month-to-month contracts show materially higher churn risk than those on longer-term agreements.
+- Short tenure is one of the strongest indicators of early attrition.
+- Customers paying via electronic check and those without support-related add-on services exhibit higher likelihood of churn.
+- Long-term contracts, automatic payments, and bundled support services are associated with lower churn risk
  
 
-## Data Processing & Feature Engineering (PROCESS)
+### Action
+Instead of producing a binary churn label, the model outputs churn probabilities. This enables:
 
-All preprocessing was handled using a **scikit-learn Pipeline** to ensure:
+- Ranking customers by risk
 
-- Reproducibility
-- No data leakage
-- Consistency between training and deployment
+- Differentiating retention strategies by risk tier
 
-### Key Steps
-- Type coercion for numeric billing fields
-- Median imputation for numerical features
-- Most-frequent imputation for categorical features
-- One-Hot Encoding for categorical variables
-- Standard scaling for numerical variables
+- Allocating retention resources where expected impact is highest
 
-✔ No manual preprocessing outside the pipeline  
-✔ Same transformations used in training and inference
+For example, customers with churn probabilities above a defined threshold can be flagged for proactive outreach, contract incentives, or service upgrades, while lower-risk segments require minimal intervention. 
 
+## Deployment
+To support practical use, the model was deployed as an interactive Streamlit application.
+
+The app allows users to:
+
+- Input individual customer profiles
+
+- Upload customer datasets for batch scoring
+
+- View churn probabilities alongside feature influence
+
+- Explore how changes in contract or service attributes affect risk
  
 
-## Modeling Approach (MODEL)
+## How This Can Be Extended
+Future improvements could include:
 
-### Model Used
-- **Logistic Regression**
+- Cost-sensitive threshold tuning aligned with retention budget 
+- ROI-based intervention simulation
+- Tree-based models for comparison against the interpretable baseline
+- Integration with live customer systems for automated scoring
 
-### Why Logistic Regression?
-- Strong baseline performance
-- High interpretability
-- Clear business explainability through coefficients
-
-The goal was **decision support**, not just accuracy.
-
-### Evaluation Focus
-- Precision & Recall (churn identification)
-- ROC-AUC
-- Confusion Matrix
-- Feature coefficient analysis
-
- 
-
-##  Key Insights (ANALYZE)
-
-### Features Increasing Churn Risk
-- Month-to-month contracts
-- Electronic check payments
-- Fiber optic internet without support services
-- Short customer tenure
-
-### Features Reducing Churn Risk
-- Long-term contracts (1–2 years)
-- Tech support and online security
-- Automatic payment methods
-
-These insights directly inform **targeted retention strategies**.
-
- 
-
-## Interactive Deployment (SHARE)
-
-To move beyond static dashboards, the model was deployed as an **interactive Streamlit application**.
-
-### App Capabilities
-- Manual customer data entry
-- CSV upload for batch predictions
-- Churn probability scoring
-- Real-time prediction output
-- Feature influence visualization
-- Business-friendly interface
-
-
- 
-
-## Running the App Locally
-
-streamlit run churn_streamlit_app.
-
-## Business Impact (ACT)
-
-### How the Model Can Be Used
-
-- Identify high-risk customers early  
-- Target retention campaigns effectively  
-- Optimize customer support allocation  
-- Reduce revenue loss due to churn  
-
-**Action:**  
-Customers with **churn probability > 70%** can be targeted with contract upgrades or support bundles.
-
- 
-
-## Future Improvements
-
-- Cost-sensitive modeling (optimize for retention ROI)  
-- Threshold tuning based on business constraints  
-- Tree-based models (XGBoost, LightGBM)  
-- SHAP-based interpretability  
-- Cloud deployment (Streamlit Cloud)
-
- 
-
-## Skills Demonstrated
-
-- Applied Data Science  
-- Predictive Modeling  
-- Feature Engineering  
-- Model Interpretability  
-- Pipeline Design  
-- Deployment & Stakeholder Interactivity  
-- Business-driven analytics  
-
- 
 
 ## 🔗 Links
-
+- **The App:** (https://customerchurnrateprediction.streamlit.app/) 
 - **Medium Case Study:** (https://ibinaboadiela.medium.com/) 
 - **Portfolio:** (https://ibinaboadiela.vercel.app/)  
 - **LinkedIn:** (https://www.linkedin.com/in/ibinaboadiela/)
