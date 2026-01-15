@@ -1,6 +1,6 @@
 # Customer Churn Prediction (Telco)
 
- 
+![Dashboard Overview](Customer_Churn_Prediction.png) 
 
 ## Overview
 
@@ -75,6 +75,7 @@ Future improvements could include:
 
 ## 🔗 Links
 - **The App:** (https://customerchurnrateprediction.streamlit.app/) 
-- **Medium Case Study:** (https://ibinaboadiela.medium.com/) 
+- **Medium Case Study:** (https://ibinaboadiela.medium.com/predicting-customer-churn-in-the-telecommunication-industry-00296b9ab8b6) 
 - **Portfolio:** (https://ibinaboadiela.vercel.app/)  
 - **LinkedIn:** (https://www.linkedin.com/in/ibinaboadiela/)
+- **Youtube:** (https://www.youtube.com/watch?v=0pl3mKdKPPo)
